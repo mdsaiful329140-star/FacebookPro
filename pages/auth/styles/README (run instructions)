@@ -1,0 +1,44 @@
+# facebook-pro
+
+A starter social app (Next.js + TypeScript + NextAuth + Prisma + Postgres). This scaffold includes authentication (NextAuth with email + Google placeholders) and the ability to create and read posts.
+
+## Requirements
+
+- Node 18+
+- npm or yarn
+- Docker (for local Postgres) — optional but recommended
+
+## Quickstart (local)
+
+1. Copy the repo files into a folder (facebook-pro).
+
+2. Create a .env file from .env.example and fill values:
+   - DATABASE_URL (default points to local Docker Postgres)
+   - NEXTAUTH_URL (http://localhost:3000)
+   - NEXTAUTH_SECRET (set a strong random value)
+   - GOOGLE_CLIENT_ID / GOOGLE_CLIENT_SECRET (optional)
+   - EMAIL_SERVER / EMAIL_FROM (for email sign-in)
+
+3. Start local Postgres:
+   - docker compose up -d
+   - Wait for Postgres to be ready.
+
+4. Install dependencies:
+   - npm install
+
+5. Generate Prisma client and run migrations:
+   - npx prisma generate
+   - npx prisma migrate dev --name init
+
+6. Seed demo users/posts:
+   - npx ts-node --transpile-only prisma/seed.ts
+
+7. Run dev server:
+   - npm run dev
+   - Open http://localhost:3000
+
+## Notes
+
+- NextAuth Email provider requires SMTP credentials (EMAIL_SERVER). Without SMTP, use Google provider after creating OAuth credentials and setting GOOGLE_* env vars.
+- To deploy, set env vars in your host (Vercel / Railway / Render) and ensure a managed Postgres is configured.
+- Later additions I can implement: image uploads (S3), likes/comments/follow system, real-time notifications, CI.
